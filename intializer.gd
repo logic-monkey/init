@@ -42,7 +42,9 @@ func Load():
 		emit_signal("loaded")
 		return
 	
-	if data.has(POSITION): DisplayServer.window_set_position(data[POSITION])
+	if data.has(POSITION):
+		if DisplayServer.get_screen_from_rect(Rect2(data[POSITION], Vector2i(1,1))) >= 0:
+			DisplayServer.window_set_position(data[POSITION])
 	if data.has(SIZE): DisplayServer.window_set_size(data[SIZE])
 	if data.has(MODE): 
 		await get_tree().process_frame
